@@ -6,6 +6,7 @@ require 'dealer'
 require 'game'
 require 'hand'
 require 'table'
+require 'brain'
 require 'evaluator'
 require 'pry'
 

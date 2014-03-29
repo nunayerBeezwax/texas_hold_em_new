@@ -55,5 +55,4 @@ class Table
 			@button = 1
 		end
 	end
-
 end

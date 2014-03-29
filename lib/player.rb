@@ -1,11 +1,12 @@
 class Player
-	attr_reader :chips, :hole_cards, :name, :seat, :hand, :raise
+	attr_reader :chips, :hole_cards, :name, :seat, :hand, :raise, :brain
 
 	def initialize(seat, chips)
 		@hole_cards = []
 		@chips = chips
 		@seat = seat
 		@hand = []
+		@brain = Brain.new
 	end
 
 	def get_card(card)
