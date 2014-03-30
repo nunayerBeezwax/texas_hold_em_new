@@ -15,6 +15,18 @@ class Table
 		@board << card
 	end
 
+	#rotate is pretty cool, think this is the right way, though I don't yet know
+	#how the each loop will interact with all the intermediary decisions/actions
+	#the condition means to assure that only non-folded players get to make decisions
+	#SAME CONDITION WILL NEED TO BE ADDED IN SHOWDOWN, probably other places too
+	def action
+		@players.rotate(@button + 1).each do |player|
+			if player.hole_cards.count == 2
+				player.decision(@board, @pot)
+			end
+		end
+	end
+
 	def bet(raise)
 		@pot += raise
 	end

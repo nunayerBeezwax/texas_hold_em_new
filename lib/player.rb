@@ -19,9 +19,29 @@ class Player
 		Hand.new(@hand, self)
 	end
 
+	def fold
+		@hole_cards = []
+	end
+
+	def call(amount)
+		@chips -= amount
+	end
+
 	def raise(amount)
 		@chips -= amount
 		@raise = amount 
+	end
+
+	def decision(board, pot)
+		if board.length == 0
+			preflop_decision
+		elsif board.length == 3
+			postflop_decision
+		elsif board.length == 4
+			turn_decision
+		else
+			river decision
+		end
 	end
 
 	def preflop_decision
