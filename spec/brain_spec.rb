@@ -21,4 +21,43 @@ describe Brain do
 			player.brain.odds['flush'].should be_within(0.005).of(0.3496)
 		end
 	end
+
+	describe '#prefop' do
+		it 'doesn\'t always call' do
+			test_player = Player.new(1, 1000)
+			test_player.hole_cards << Card.new('H', 10)
+			test_player.hole_cards << Card.new('D', 9)
+			test_player.preflop_decision.should eq 'Fold'
+		end
+		it 'calls with any pair' do
+			test_player = Player.new(1, 1000)
+			test_player.hole_cards << Card.new('H', 10)
+			test_player.hole_cards << Card.new('D', 10)
+			test_player.preflop_decision.should eq 'Call'
+		end
+		it 'calls with any suited ace' do
+			test_player = Player.new(1, 1000)
+			test_player.hole_cards << Card.new('H', 14)
+			test_player.hole_cards << Card.new('H', 4)
+			test_player.preflop_decision.should eq 'Call'
+		end
+		it 'calls with two high cards' do
+			test_player = Player.new(1, 1000)
+			test_player.hole_cards << Card.new('S', 12)
+			test_player.hole_cards << Card.new('D', 13)
+			test_player.preflop_decision.should eq 'Call'
+		end
+		it 'calls with suited connectors' do
+			test_player = Player.new(1, 1000)
+			test_player.hole_cards << Card.new('D', 5)
+			test_player.hole_cards << Card.new('D', 6)
+			test_player.preflop_decision.should eq 'Call'	
+		end
+		it 'calls with any suited ace' do
+			test_player = Player.new(1, 1000)
+			test_player.hole_cards << Card.new('D', 5)
+			test_player.hole_cards << Card.new('D', 14)
+			test_player.preflop_decision.should eq 'Call'	
+		end
+	end
 end

@@ -24,4 +24,9 @@ class Player
 		@raise = amount 
 	end
 
+	def preflop_decision
+		self.hole_cards.each { |card| @hand << card }
+		self.brain.preflop(@hand)
+	end
+
 end

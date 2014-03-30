@@ -33,13 +33,13 @@ describe Evaluator do
 		it 'returns true if a given hand contains any 5 rank in a row' do
 			test_hand = []
 			junk_hand = []
-			junk_hand << Card.new('D', 2)
-			junk_hand << Card.new('S', 3)
-			junk_hand << Card.new('H', 5)
-			junk_hand << Card.new('C', 7)
-			junk_hand << Card.new('D', 10)
-			junk_hand << Card.new('S', 12)
-			junk_hand << Card.new('C', 9)
+			junk_hand << Card.new('D', 4)
+			junk_hand << Card.new('C', 5)
+			junk_hand << Card.new('C', 11)
+			junk_hand << Card.new('C', 8)
+			junk_hand << Card.new('S', 2)
+			junk_hand << Card.new('H', 3)
+			junk_hand << Card.new('H', 8)
 			7.times { |i| test_hand << Card.new('S', i + 1) }
 			Evaluator.straight(test_hand).should eq true
 			Evaluator.straight(junk_hand).should eq false

@@ -6,6 +6,7 @@ require './lib/player'
 require './lib/hand'
 require './lib/table'
 require './lib/card'
+require './lib/brain'
 require 'pry'
 
 def main_menu
@@ -32,9 +33,9 @@ def new_game
 		game.dealer.preflop
 	end
 	puts "\nYour hole cards are:",
-			 "----------------------",
-			 "#{game.table.table[0].hole_cards[0].rank} of #{game.table.table[0].hole_cards[0].suit}",
-				"#{game.table.table[0].hole_cards[1].rank} of #{game.table.table[0].hole_cards[1].suit}",
+			 "----------------------"
+	puts "#{game.table.players[0].hole_cards[0].rank} of #{game.table.players[0].hole_cards[0].suit}",
+				"#{game.table.players[0].hole_cards[1].rank} of #{game.table.players[0].hole_cards[1].suit}",
 			 "-------"
 	puts "Press 'F' to see the flop:"
 	choice = gets.chomp.downcase
@@ -72,7 +73,7 @@ def new_game
 			 "#{game.table.board[3].rank} of #{game.table.board[3].suit}",
 			 "#{game.table.board[4].rank} of #{game.table.board[4].suit}",
 			 "-------"
-	hand = game.table.table[0].combine(game.table.board)
+	hand = game.table.players[0].combine(game.table.board)
 	puts "You got a #{Evaluator.make_best(hand)}"
 	main_menu
 end

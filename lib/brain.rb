@@ -2,6 +2,23 @@ class Brain
 
 	attr_reader :situation, :hand_types, :outs, :odds
 
+	def preflop(hand)
+		if hand[0].rank == hand[1].rank
+			'Call'
+		elsif hand[0].suit == hand[1].suit && (hand[0].rank == 14 || hand[1].rank == 14)
+			'Call'
+		elsif hand[0].rank > 11 && hand[1].rank > 11
+			'Call'
+		elsif (hand[0].rank - hand[1].rank).abs == 1 && hand[0].suit == hand[1].suit
+			'Call'
+		elsif (hand[0].rank == 14 || hand[1].rank == 14) && hand[0].suit == hand[1].suit
+			'Call'
+		else 
+			'Fold'
+		end
+	end
+
+
 	def draw(hand, deal)
 		@hand_types = { 1 => 'high_card', 2 => 'pair', 3 => 'two_pair', 4 => 'trips',
 		  5 => 'straight', 6 => 'flush', 7 => 'boat', 8 => 'quads', 9 => 'straight_flush' }
@@ -28,6 +45,8 @@ class Brain
 		case desired_hand
 		when 'flush'
 			13 - count_suit(current_hand)
+		when 'straight'
+			#something...
 		end
 	end
 

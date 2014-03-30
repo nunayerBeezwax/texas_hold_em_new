@@ -72,11 +72,14 @@ class Evaluator
 				return true
 			end
 		elsif temp_hand.length == 6
-			if (temp_hand[1].rank - temp_hand[5].rank).abs == 4
+			if (temp_hand[1].rank - temp_hand[5].rank).abs == 4 ||
+				 (temp_hand[0].rank - temp_hand[4].rank).abs == 4
 				return true
 			end
 		elsif temp_hand.length == 7
-			if (temp_hand[2].rank - temp_hand[6].rank).abs == 4
+			if (temp_hand[0].rank - temp_hand[4].rank).abs == 4 ||
+				 (temp_hand[1].rank - temp_hand[5].rank).abs == 4 ||
+				 (temp_hand[2].rank - temp_hand[6].rank).abs == 4
 				return true
 			end
 		end
@@ -138,11 +141,14 @@ class Evaluator
 				straight = true
 			end
 		elsif temp_hand.length == 6
-			if (temp_hand[1].rank - temp_hand[5].rank).abs == 4
+			if (temp_hand[1].rank - temp_hand[5].rank).abs == 4 ||
+				 (temp_hand[0].rank - temp_hand[4].rank).abs == 4
 				straight = true
 			end
 		elsif temp_hand.length == 7
-			if (temp_hand[2].rank - temp_hand[6].rank).abs == 4
+			if (temp_hand[0].rank - temp_hand[4].rank).abs == 4 ||
+				 (temp_hand[1].rank - temp_hand[5].rank).abs == 4 ||
+				 (temp_hand[2].rank - temp_hand[6].rank).abs == 4
 				straight = true
 			end
 		end
