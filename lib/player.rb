@@ -50,12 +50,12 @@ class Player
 				self.fold
 				return 'Fold'
 			end
-		elsif hand.length == 5
-			postflop_decision(hand, bet)
-		elsif hand.length == 6
-			turn_decision(hand, bet)
+		elsif hand.hand.length == 5
+			# postflop_decision(hand, bet)
+		elsif hand.hand.length == 6
+			# turn_decision(hand, bet)
 		else
-			river_decision(hand, bet)
+			# river_decision(hand, bet)
 		end
 	end
 end

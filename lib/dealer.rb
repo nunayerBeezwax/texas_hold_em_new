@@ -8,6 +8,20 @@ class Dealer
 		@table = table
 	end
 
+	def deal
+		@deck.shuffle
+		@table.blinds(1)
+		self.preflop
+		@table.action
+		self.flop
+		@table.action
+		binding.pry
+		self.turn
+		@table.action
+		self.river
+		@table.action
+	end
+
 	def preflop
 		i = 0
 		until @table.players[8].hole_cards.length == 2

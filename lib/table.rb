@@ -1,6 +1,6 @@
 class Table
 
-	attr_reader :players, :board, :hands, :pot, :button, :active_players, :sb, :bb
+	attr_reader :players, :board, :hands, :pot, :button, :active_players, :sb, :bb, :action
 
 	def initialize(num_of_players)
 		@players = []
@@ -33,13 +33,13 @@ class Table
 	end
 
 	def small_blind(level)
-		@sb = (self.blinds[level]) / 2
+		@sb = (self.blinds_table[level]) / 2
 		@players[@button + 1].ante(@sb)
 		self.bet(sb)
 	end
 
 	def big_blind(level)
-		@bb = (self.blinds[level])
+		@bb = (self.blinds_table[level])
 		@players[@button + 2].ante(@bb)
 		self.bet(bb)
 	end
@@ -91,7 +91,13 @@ class Table
 		end
 	end
 
-	def blinds
-		@blinds = { 1 => 50, 2 => 100, 3 => 200, 4 => 400 }
+	def blinds_table
+		@blinds_table = { 1 => 50, 2 => 100, 3 => 200, 4 => 400 }
+	end
+
+## need to find a way to do a clock or hand counter to increment blinds
+	def blinds(level)
+		self.small_blind(level)
+		self.big_blind(level)
 	end
 end
