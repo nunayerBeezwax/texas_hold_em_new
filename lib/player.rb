@@ -21,6 +21,7 @@ class Player
 
 	def fold
 		@hole_cards = []
+		@hand = []
 	end
 
 	def call(amount)
@@ -32,21 +33,25 @@ class Player
 		@raise = amount 
 	end
 
-	def decision(board, pot)
-		if board.length == 0
-			preflop_decision
-		elsif board.length == 3
-			postflop_decision
-		elsif board.length == 4
-			turn_decision
+	def decision(hand, bet)
+		if hand.hand.length == 2
+			case self.brain.preflop(hand, bet)
+			when 'Call'	
+				self.call(bet)
+				return 'Call'
+			when 'Raise'
+				self.raise(bet*3)
+				return 'Raise'
+			when 'Fold' 
+				self.fold
+				return 'Fold'
+			end
+		elsif hand.length == 5
+			postflop_decision(hand, bet)
+		elsif hand.length == 6
+			turn_decision(hand, bet)
 		else
-			river decision
+			river_decision(hand, bet)
 		end
 	end
-
-	def preflop_decision
-		self.hole_cards.each { |card| @hand << card }
-		self.brain.preflop(@hand)
-	end
-
 end

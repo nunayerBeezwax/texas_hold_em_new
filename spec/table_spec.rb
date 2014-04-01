@@ -43,4 +43,24 @@ describe 'Table' do
 			test_game.table.button.should be_between(1, 9)
 		end
 	end	
+
+	describe '#action' do
+		it 'beginning with button+1, asks each player still in the hand to make a decision' do
+			test_game = Game.new
+			test_game.dealer.preflop
+			test_game.table.action
+			puts test_game.table.pot
+			test_game.table.players.each { |p| p.hole_cards.each {|c| print "#{c.rank}#{c.suit}" } }
+			test_game.table.pot.should > 0
+		end
+	end
+
+	describe '#active_players' do
+		it 'holds a temporary count of non-folded players at a given time' do
+			test_game = Game.new
+			test_game.dealer.preflop
+			test_game.table.action
+			test_game.table.active_players.count.should < 7
+		end
+	end
 end

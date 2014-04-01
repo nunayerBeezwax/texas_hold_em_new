@@ -1,17 +1,17 @@
 class Brain
 
-	attr_reader :situation, :hand_types, :outs, :odds
+	attr_reader :situation, :hand_types, :outs, :odds, :preflop
 
-	def preflop(hand)
-		if hand[0].rank == hand[1].rank
+	def preflop(hand, bet)
+		if hand.hand[0].rank == hand.hand[1].rank
+			'Raise'
+		elsif hand.hand[0].suit == hand.hand[1].suit && (hand.hand[0].rank == 14 || hand.hand[1].rank == 14)
 			'Call'
-		elsif hand[0].suit == hand[1].suit && (hand[0].rank == 14 || hand[1].rank == 14)
+		elsif hand.hand[0].rank > 11 && hand.hand[1].rank > 11
 			'Call'
-		elsif hand[0].rank > 11 && hand[1].rank > 11
+		elsif (hand.hand[0].rank - hand.hand[1].rank).abs == 1 && hand.hand[0].suit == hand.hand[1].suit
 			'Call'
-		elsif (hand[0].rank - hand[1].rank).abs == 1 && hand[0].suit == hand[1].suit
-			'Call'
-		elsif (hand[0].rank == 14 || hand[1].rank == 14) && hand[0].suit == hand[1].suit
+		elsif (hand.hand[0].rank == 14 || hand.hand[1].rank == 14) && hand.hand[0].suit == hand.hand[1].suit
 			'Call'
 		else 
 			'Fold'

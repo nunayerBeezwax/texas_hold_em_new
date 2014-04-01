@@ -24,4 +24,39 @@ describe 'Player' do
 			test_game.table.hands[5].player.should eq 6
 		end
 	end
+
+	describe '#decision' do
+		it 'passes info to the brain and reports a decision' do
+			test_player = Player.new(1, 1000)
+			card1 = Card.new('H', 8)
+			card2 = Card.new('H', 7)
+			test_player.get_card(card1)
+			test_player.get_card(card2)
+			hand = test_player.combine([])
+			test_player.decision(hand, 100).should eq 'Call'
+			test_player.chips.should eq 900
+		end
+
+		it 'doesn\'t always call' do
+			test_player = Player.new(1, 1000)
+			card1 = Card.new('H', 13)
+			card2 = Card.new('C', 5)
+			test_player.get_card(card1)
+			test_player.get_card(card2)
+			hand = test_player.combine([])
+			test_player.decision(hand, 100).should eq 'Fold'
+			test_player.hole_cards.should eq []
+		end
+
+		it 'is capable of raising' do
+			test_player = Player.new(1, 1000)
+			card1 = Card.new('H', 13)
+			card2 = Card.new('S', 13)
+			test_player.get_card(card1)
+			test_player.get_card(card2)
+			hand = test_player.combine([])
+			test_player.decision(hand, 100).should eq 'Raise'
+			test_player.chips.should eq 700
+		end
+	end
 end

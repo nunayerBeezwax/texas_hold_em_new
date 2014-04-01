@@ -1,6 +1,6 @@
 class Table
 
-	attr_reader :players, :board, :hands, :pot, :button
+	attr_reader :players, :board, :hands, :pot, :button, :active_players
 
 	def initialize(num_of_players)
 		@players = []
@@ -22,7 +22,12 @@ class Table
 	def action
 		@players.rotate(@button + 1).each do |player|
 			if player.hole_cards.count == 2
-				player.decision(@board, @pot)
+				hand = player.combine(@board)
+				if player.decision(hand, @pot) == 'Call'
+					@pot += 100
+				elsif player.decision(hand, @pot) == 'Raise'
+					self.bet(300)
+				end
 			end
 		end
 	end
@@ -51,6 +56,12 @@ class Table
 		end
 		puts winner
 		return winner
+	end
+
+	def active_players
+		@players.select do |player| 
+			player.hole_cards.count == 2
+		end
 	end
 
 	def clear_board
