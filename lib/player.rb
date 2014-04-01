@@ -33,6 +33,10 @@ class Player
 		@raise = amount 
 	end
 
+	def ante(amount)
+		@chips -= amount
+	end
+
 	def decision(hand, bet)
 		if hand.hand.length == 2
 			case self.brain.preflop(hand, bet)

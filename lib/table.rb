@@ -1,6 +1,6 @@
 class Table
 
-	attr_reader :players, :board, :hands, :pot, :button, :active_players
+	attr_reader :players, :board, :hands, :pot, :button, :active_players, :sb, :bb
 
 	def initialize(num_of_players)
 		@players = []
@@ -30,6 +30,18 @@ class Table
 				end
 			end
 		end
+	end
+
+	def small_blind(level)
+		@sb = (self.blinds[level]) / 2
+		@players[@button + 1].ante(@sb)
+		self.bet(sb)
+	end
+
+	def big_blind(level)
+		@bb = (self.blinds[level])
+		@players[@button + 2].ante(@bb)
+		self.bet(bb)
 	end
 
 	def bet(raise)
@@ -77,5 +89,9 @@ class Table
 		if @button > @players.length
 			@button = 1
 		end
+	end
+
+	def blinds
+		@blinds = { 1 => 50, 2 => 100, 3 => 200, 4 => 400 }
 	end
 end

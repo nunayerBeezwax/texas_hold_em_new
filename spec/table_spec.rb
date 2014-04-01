@@ -63,4 +63,23 @@ describe 'Table' do
 			test_game.table.active_players.count.should < 7
 		end
 	end
+
+	describe '#small_blind' do
+		it 'charges a fixed bet to the 1st position after button before each hand' do
+			test_game = Game.new
+			test_game.table.small_blind(1)
+			test_game.table.players[test_game.table.button + 1].chips.should eq 975
+			test_game.table.pot.should eq 25
+		end
+	end
+
+	describe '#big_blind' do
+		it 'chargest a fixed bet to the 2nd position after button before each hand' do
+			test_game = Game.new
+			test_game.table.small_blind(1)
+			test_game.table.big_blind(1)
+			test_game.table.players[test_game.table.button + 2].chips.should eq 950
+			test_game.table.pot.should eq 75
+		end
+	end
 end
