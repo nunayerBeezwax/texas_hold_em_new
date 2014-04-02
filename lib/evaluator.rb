@@ -22,45 +22,33 @@ class Evaluator
 	end
 
 	def self.pair(hand)
-		x = false
 		hand.each do |card|
 			if hand.any? { |c| card.rank == c.rank && card != c }
-				x = true
+				return true
 			end
 		end
-		x
+		false
 	end
 
 	def self.two_pair(hand)
 		pairs = 0
-		x = false
-		i = 2
-		until i == 14
-			if hand.count { |card| card.rank == i } == 2
+
+		13.times do |i|
+			if hand.count { |card| card.rank == i + 1 } == 2
 				pairs += 1
 			end
-			i += 1
 		end
-		if pairs >= 2
-			x = true
-		end
-		x
+	
+		pairs >= 2
 	end
 
 	def self.three_of_a_kind(hand)
-		trips = 0
-		x = false
-		i = 2
-		until i == 14
-			if hand.count { |card| card.rank == i } == 3
-				trips += 1
+		13.times do |i|
+			if hand.count { |card| card.rank == i + 1 } == 3
+				return true
 			end
-			i += 1
 		end
-		if trips >= 1
-			x = true
-		end
-		x
+		false
 	end
 
 	def self.straight(hand)
@@ -88,47 +76,36 @@ class Evaluator
 
 	def self.flush(hand)
 		suits = %w{ H S C D }
-		x = false
+
 		suits.each do |s|
-			x = true if hand.count { |card| card.suit == s } >= 5
+			return true if hand.count { |card| card.suit == s } >= 5
 		end
-		x
+		false
 	end
 
 	def self.full_house(hand)
 		trips = 0
 		pairs = 0
-		x = false
-		i = 2
-		until i == 14
-			if hand.count { |card| card.rank == i } == 3
+		
+		13.times do |i|
+			if hand.count { |card| card.rank == i + 1 } == 3
 				trips += 1
 			end
-			if hand.count { |card| card.rank == i } == 2
+			if hand.count { |card| card.rank == i + 1 } == 2
 				pairs += 1
 			end
-			i += 1
 		end
-		if trips >= 1 && pairs >= 1
-			x = true
-		end
-		x
+		
+		trips >= 1 && pairs >= 1
 	end
 
 	def self.four_of_a_kind(hand)
-		quads = 0
-		x = false
-		i = 2
-		until i == 14
-			if hand.count { |card| card.rank == i } == 4
-				quads += 1
-			end
-			i += 1
-		end
-		if quads == 1
-			x = true
-		end
-		x
+        13.times do |i|
+        	if hand.count { |card| card.rank == i + 1 } == 4
+        		return true
+        	end
+        end
+        false		
 	end
 
 	def self.straight_flush(hand)
@@ -160,4 +137,3 @@ class Evaluator
 	false
 	end
 end
-
